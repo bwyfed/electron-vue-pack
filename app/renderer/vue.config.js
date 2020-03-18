@@ -16,7 +16,7 @@ module.exports = {
   pluginOptions: {
     electronBuilder: {
       outputDir: 'dist', // default is dis_electron
-      mainProcessFile: '../../../main/index.js',
+      mainProcessFile: '../main/index.js',
       chainWebpackRendererProcess: config => {
         // Chain webpack config for electron renderer process only
         // The following example will set IS_ELECTRON to true in your app
