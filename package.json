@@ -4,7 +4,8 @@
   "description": "electron和vue一起使用，打包示例。",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "cd app/renderer && npm run electron:serve",
+    "pack:wi": "cd app/renderer && npm run electron:build"
   },
   "repository": {
     "type": "git",
