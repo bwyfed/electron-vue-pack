@@ -1,0 +1,20 @@
+{
+  "name": "electron-vue-pack",
+  "version": "1.0.0",
+  "description": "electron和vue一起使用，打包示例。",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bwyfed/electron-vue-pack.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bwyfed/electron-vue-pack/issues"
+  },
+  "homepage": "https://github.com/bwyfed/electron-vue-pack#readme"
+}
