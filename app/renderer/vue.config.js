@@ -15,7 +15,16 @@ module.exports = {
   },
   pluginOptions: {
     electronBuilder: {
-      outputDir: 'dist', // default is dis_electron
+      builderOptions: {
+        appId: 'com.geektime.mercurius',
+        productName: 'CME',
+        asar: false,
+        copyright: 'Copyright © 2020 dragon',
+        directories: {
+          output: 'release'
+        }
+      },
+      outputDir: 'dist', // default is dist_electron
       mainProcessFile: '../main/index.js',
       chainWebpackRendererProcess: config => {
         // Chain webpack config for electron renderer process only
