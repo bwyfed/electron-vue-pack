@@ -12,15 +12,17 @@ console.log(isDevelopment);
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win;
+let secondWin;
+let createAppProtocol = false;
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
   { scheme: 'app', privileges: { secure: true, standard: true } }
 ]);
 
-function createWindow() {
+function createWindow(winVar, devPath, prodPath, route) {
   // Create the browser window.
-  win = new BrowserWindow({
+  winVar = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
@@ -34,17 +36,21 @@ function createWindow() {
       process.env.WEBPACK_DEV_SERVER_URL
     );
     // Load the url of the dev server if in development mode
-    win.loadURL(process.env.WEBPACK_DEV_SERVER_URL + '#/about');
-    if (!process.env.IS_TEST) win.webContents.openDevTools();
+    console.log(process.env.WEBPACK_DEV_SERVER_URL + devPath + route);
+    winVar.loadURL(process.env.WEBPACK_DEV_SERVER_URL + devPath + route);
+    if (!process.env.IS_TEST) winVar.webContents.openDevTools();
   } else {
     console.log('build.....');
-    createProtocol('app');
+    if (!createAppProtocol) {
+      createProtocol('app');
+      createAppProtocol = true;
+    }
     // Load the index.html when not in development
-    win.loadURL('app://./index.html#/about');
+    winVar.loadURL(`app://./${prodPath}${route}`);
   }
 
-  win.on('closed', () => {
-    win = null;
+  winVar.on('closed', () => {
+    winVar = null;
   });
 }
 
@@ -61,7 +67,10 @@ app.on('activate', () => {
   // On macOS it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (win === null) {
-    createWindow();
+    createWindow(win, '', 'index.html', '#/about');
+  }
+  if (secondWin === null) {
+    createWindow(secondWin, 'subpage', 'subpage.html', '#/about2');
   }
 });
 
@@ -76,13 +85,14 @@ app.on('ready', async () => {
     // Electron will not launch with Devtools extensions installed on Windows 10 with dark mode
     // If you are not using Windows 10 dark mode, you may uncomment these lines
     // In addition, if the linked issue is closed, you can upgrade electron and uncomment these lines
-    // try {
-    //   await installVueDevtools()
-    // } catch (e) {
-    //   console.error('Vue Devtools failed to install:', e.toString())
-    // }
+    try {
+      await installVueDevtools();
+    } catch (e) {
+      console.error('Vue Devtools failed to install:', e.toString());
+    }
   }
-  createWindow();
+  createWindow(win, '', 'index.html', '#/about');
+  createWindow(secondWin, 'subpage', 'subpage.html', '#/about2');
 });
 
 // Exit cleanly on request from parent process in development mode.
