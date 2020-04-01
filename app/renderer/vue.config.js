@@ -4,7 +4,8 @@ module.exports = {
       entry: 'src/main.js',
       template: 'public/index.html',
       filename: 'index.html',
-      title: 'Index Page'
+      title: 'Index Page',
+      staticPath: '/static/'
     },
     subpage: {
       entry: 'src/subpage/main.js',
@@ -31,7 +32,8 @@ module.exports = {
         // The following example will set IS_ELECTRON to true in your app
         config.plugin('define').tap(args => {
           console.log('args', args);
-          args[0]['IS_ELECTRON'] = true;
+          args[0]['IS_ELECTRON'] = false;
+          console.log(args[0]);
           return args;
         });
       }
