@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/bwyfed/electron-vue-pack#readme",
   "devDependencies": {
-    "electron": "^6.1.9",
+    "electron": "^9.1.0",
     "vue-cli-plugin-electron-builder": "^1.4.6"
   }
 }
